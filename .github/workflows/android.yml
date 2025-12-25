@@ -1,31 +1,23 @@
 name: Build Diana Assistant
-
 on:
   push:
     branches: [ "main" ]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
     - name: set up JDK 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
-
-    - name: Setup Gradle
-      run: |
-        gradle wrapper --gradle-version 8.5
-        # Це примусово виправляє помилку версій
-        ./gradlew --version
-
+        cache: gradle
     - name: Build with Gradle
-      run: ./gradlew assembleDebug --stacktrace
-        
+      run: |
+        chmod +x gradlew
+        ./gradlew assembleDebug --no-daemon
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
