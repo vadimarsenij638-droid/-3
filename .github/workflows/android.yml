@@ -19,16 +19,13 @@ jobs:
 
     - name: Generate Wrapper and Build
       run: |
-        # Генеруємо справжній gradle wrapper автоматично
-            - name: Generate Wrapper and Build
-      run: |
         gradle wrapper --gradle-version 8.5
         chmod +x gradlew
         ./gradlew assembleDebug --stacktrace
-        
         
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: Diana_App
         path: app/build/outputs/apk/debug/app-debug.apk
+        
