@@ -17,11 +17,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Generate Wrapper and Build
+    - name: Setup Gradle
       run: |
         gradle wrapper --gradle-version 8.5
-        chmod +x gradlew
-        ./gradlew assembleDebug --stacktrace
+        # Це примусово виправляє помилку версій
+        ./gradlew --version
+
+    - name: Build with Gradle
+      run: ./gradlew assembleDebug --stacktrace
         
     - name: Upload APK
       uses: actions/upload-artifact@v4
