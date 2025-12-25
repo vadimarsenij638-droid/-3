@@ -16,16 +16,16 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle
 
-    - name: Build with Gradle
+    - name: Generate Wrapper and Build
       run: |
+        # Генеруємо справжній gradle wrapper автоматично
+        gradle wrapper
         chmod +x gradlew
         ./gradlew assembleDebug
-
+        
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: Diana_App
         path: app/build/outputs/apk/debug/app-debug.apk
-        
